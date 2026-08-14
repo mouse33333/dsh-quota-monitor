@@ -73,18 +73,37 @@
 
 ## 安装
 
-### 方式 A：本地路径（当前仓库形态）
-
 前置：
 
 1. 已用 `opencode auth login` 登录（`~/.local/share/opencode/auth.json` 里有 `opencode-go.key`）；
 2. DSH 凭据里配置了 `DEEPSEEK_API_KEY`（设置 → 凭据，或 `~/.dsh/.credentials.yaml`）。
 
+三种安装方式任选其一，之后都要手动加 loader 行（见下）。
+
+### 方式 B（推荐）：npm 安装
+
+```sh
+npm i -g pnpm        # 需要 pnpm（dsh plugin 转发给 pnpm）
+dsh plugin --profile web add dsh-opencode-quota
+```
+
+npm 页面：<https://www.npmjs.com/package/dsh-opencode-quota>
+
+### 方式 C：GitHub 安装（最新源码）
+
+```sh
+dsh plugin --profile web add github:mouse33333/dsh-quota-monitor
+```
+
+### 方式 A：本地路径（开发模式）
+
 ```sh
 dsh plugin --profile web add D:\OneDrive\DeepSeek\dsh-plugins\opencode-quota
 ```
 
-然后编辑 `%DSH_HOME%\profiles\web\cordis.patch.yml`，加入 loader 行：
+### loader 行（三种方式都需要）
+
+编辑 `%DSH_HOME%\profiles\web\cordis.patch.yml`，加入：
 
 ```yaml
 - insert:
@@ -100,22 +119,31 @@ dsh plugin --profile web add D:\OneDrive\DeepSeek\dsh-plugins\opencode-quota
 > （本插件不是 bundle 型包，`dsh plugin` 不会自动加进 `dsh.profile.bundles`）。
 > 浏览器端 bundle 变更可由 HMR 热替换；宿主端代码变更必须重启应用。
 
-### 方式 B：npm 安装（发布到社区后）
+## 更新
 
 ```sh
-npm i -g pnpm   # 需要 pnpm
-dsh plugin --profile web add dsh-opencode-quota
-# 之后同样手动加 loader 行（见上），并重启应用
+# 1. 查看最新版本
+npm view dsh-opencode-quota version
+
+# 2. 升级插件（npm / GitHub 安装均可；pnpm 会拉取最新版）
+dsh plugin --profile web update dsh-opencode-quota
+
+# 3. 生效
+#    - 浏览器端（UI）：HMR 自动热替换，或刷新页面
+#    - 宿主端（路由/价格服务）：重启 GUI 应用
 ```
+
+- 本地路径安装（方式 A）：`git -C D:\OneDrive\DeepSeek\dsh-quota-monitor pull` 拉取最新源码后重启应用；
+- 查看已安装版本：`dsh plugin --profile web list` 或检查 `%DSH_HOME%\profiles\web\package.json` 的依赖版本；
+- 完整变更历史见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 发布到社区（给贡献者的建议）
 
-- **npm**：包名 `dsh-opencode-quota` 目前未被占用；`npm publish` 前请确认
-  `package.json` 的 `description`、`license`（MIT，见 LICENSE）、README 完整。
+- **npm**：已发布 —— <https://www.npmjs.com/package/dsh-opencode-quota>（`npm publish` 发布新版本）。
   注意版本耦合：面向 `@deepseek-ai/dsh@0.1.0-rc.6` 的 Web 面（`shell.overlay`
   插槽、模块加载器契约均为当前 rc 的内部接口，上游变更需跟进）。
-- **GitHub / Gitee**：建议仓库名 `dsh-opencode-quota`，附带 README（即本文件）
-  与 `docs/DEVELOPMENT.md`（开发记录），中文社区可直接按"方式 B"安装。
+- **GitHub**：主仓库 <https://github.com/mouse33333/dsh-quota-monitor>，附带本 README
+  与 `docs/DEVELOPMENT.md`（开发记录）；贡献请发 issue / PR。
 - 安全声明：插件只在宿主机持有 API 密钥，浏览器端只拿到额度/余额数据；
   但 opencode zen usage 接口无官方文档，属逆向接口，请知悉变动风险。
 
