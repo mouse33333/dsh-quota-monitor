@@ -6,6 +6,14 @@
 - **OpenCode Go 套餐** —— 滚动 / 本周 / 本月三个窗口的 已用%、余量%、重置时间；
 - **DeepSeek API** —— 余额（`/user/balance` 官方接口）+ 累计用量（本地会话记录聚合）。
 
+## 截图
+
+| 收起态 · DeepSeek 模型 | 收起态 · OpenCode Go 模型 | 展开的监控窗口 |
+|---|---|---|
+| ![DeepSeek 模型卡片](docs/screenshots/card-ds.png) | ![OpenCode Go 模型卡片](docs/screenshots/card-go.png) | ![监控窗口](docs/screenshots/panel.png) |
+
+> 截图由真实组件 + 真实主题渲染生成（`docs/screenshots/`）。
+
 ## 它做什么
 
 ### 宿主端 (`lib/index.js`) — 两个同源 JSON 路由
