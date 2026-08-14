@@ -1,0 +1,21 @@
+{
+  "name": "dsh-opencode-quota",
+  "version": "0.4.2",
+  "private": true,
+  "type": "module",
+  "description": "Quota monitor for the DeepSeek Harness Web GUI: OpenCode Go plan usage + DeepSeek API balance/usage, as a draggable bottom-left monitor window (host face proxies APIs, keys stay on disk).",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {},
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "inject": [],
+      "immediately": false
+    }
+  }
+}
