@@ -9,9 +9,15 @@ DeepSeek Harness (DSH) Web 插件：界面**左下角**的**额度监控窗口**
 
 ## 截图
 
-| 折叠状态（小药丸） | 展开状态（监控窗口） |
-|---|---|
-| ![折叠状态](docs/screenshots/collapsed.png) | ![展开状态](docs/screenshots/expanded.png) |
+**折叠态（左下角小卡片）**
+
+![折叠态](docs/screenshots/缩略图.png)
+
+**展开态（点击卡片打开，Tab 切换）**
+
+| 任务详情 | OpenCode | DeepSeek | MiniMax |
+|---|---|---|---|
+| ![任务详情](docs/screenshots/任务详情.png) | ![OpenCode](docs/screenshots/opencode.png) | ![DeepSeek](docs/screenshots/deepseek.png) | ![MiniMax](docs/screenshots/minimax.png) |
 
 ## 功能
 
