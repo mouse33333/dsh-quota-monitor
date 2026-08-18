@@ -38,7 +38,7 @@ DeepSeek Harness (DSH) Web 插件：界面**左下角**的**额度监控窗口**
 
 ## 安装（v0.6.0 起为 bundle 型，一条命令）
 
-** 前置：已用 `opencode auth login` 登录；DSH 凭据配置了 `DEEPSEEK_API_KEY`。**
+**前置：已用 `opencode auth login` 登录；DSH 凭据配置了 `DEEPSEEK_API_KEY`。**
 
 ```sh
 # 本地目录（开发模式）
