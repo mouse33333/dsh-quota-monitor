@@ -1,8 +1,8 @@
 {
-  "name": "dsh-opencode-quota",
-  "version": "0.5.1",
+  "name": "dsh-quota-monitor",
+  "version": "0.6.1",
   "type": "module",
-  "description": "Quota monitor for the DeepSeek Harness Web GUI: OpenCode Go plan usage + DeepSeek API balance/usage, as a draggable bottom-left monitor window (host face proxies APIs, keys stay on disk).",
+  "description": "Quota monitor for the DeepSeek Harness Web GUI: OpenCode Go plan usage + DeepSeek API balance/usage + MiniMax Token Plan, as a draggable bottom-left monitor window. P0: self-metered token ledger (llm/stream waterfall, own JSONL). P1: multi-provider abstractions (balance/windows kinds, presets, configurable parsers) and bundle-type packaging.",
   "license": "MIT",
   "keywords": [
     "deepseek-harness",
@@ -10,6 +10,7 @@
     "dsh-plugin",
     "opencode",
     "opencode-go",
+    "minimax",
     "deepseek",
     "quota",
     "usage",
@@ -32,12 +33,18 @@
   "files": [
     "lib",
     "docs",
+    "cordis.patch.yml",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
   ],
   "dependencies": {},
   "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "category": "extension",
+    "displayName": "额度监控 (OpenCode Go + DeepSeek + MiniMax)",
     "client": {
       "platform": "web",
       "inject": [],

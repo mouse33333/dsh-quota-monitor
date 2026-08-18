@@ -1,0 +1,9 @@
+# dsh-quota-monitor bundle patch layer (v0.6.0).
+# Bundle packaging: declaring `dsh.bundle.patch` makes `dsh plugin add` put
+# this package into the profile's `dsh.profile.bundles`, and the loader then
+# applies this insert automatically — no manual loader row needed anymore.
+# Entry config (id `dsh-quota-monitor`) may supply `config.providers.*` overrides
+# on top of the built-in presets (see README -> 配置).
+- insert:
+  - id: dsh-quota-monitor
+    name: dsh-quota-monitor

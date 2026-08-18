@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.6.1 (2026-08-18)
+
+- **改名**：包名由 `dsh-opencode-quota` 改为 `dsh-quota-monitor`（repository /
+  npm / bundle id / 内部 cordis 名 / 账本文件名同步更新）。
+- **新增 MiniMax Token Plan 监控**：
+  - 供应商抽象层新增 `minimax-cn`（`kind: windows`），通过
+    `https://api.minimax.chat/v1/token_plan/remains` 查询，用 `parse.source` 把
+    `model_remains` 拍平为 `rolling` / `weekly` 两个窗口（已用% / 重置时间）。
+  - 展开面板新增独立 "MiniMax Token Plan" 段落；折叠卡片在切到 MiniMax 模型时
+    显示其 5h 额度视图。
+- **展开面板改为 Tab 切换**：概览区移除，改为 `任务详情 / OpenCode / DeepSeek /
+  MiniMax` 四个 tab；详情区用 grid 重叠，面板高度恒等于最高 tab，切换不再跳动。
+- **任务详情数据对齐 harness**：`/quota-session` 的 token 用量改为优先读 harness
+  投影缓存的 `tokenUsage.val.totals`（与对话框底部任务信息同源），费用仍按插件
+  单价表估算；轮数/步数/时长本就来自投影缓存，现已完全一致。
+
+## 0.6.0 (2026-08-16)
+
+- **P0 自建计量（核心重构）**：
+  - 新增 `llm/stream` 瀑布记账：每次模型调用的 token（输入/输出/缓存读取/写入 +
+    会话 id + 耗时）写入自有账本 `$DSH_HOME/storages/dsh-opencode-quota-usage.jsonl`
+    （追加写、不阻塞热路径、90 天留存、app 重启不丢）。
+  - 累计用量 / 会话用量全部改从自有账本聚合，**不再硬依赖
+    `session_projcache.json` 的 tokenUsage 投影**（格式变更不再影响核心功能）。
+  - 投影缓存降级为可选增强：仅补齐会话遥测（轮数/步骤/工具时长），缺失或损坏时
+    自动回落到自有口径（调用次数 ≈ 轮数、累计流时长 ≈ LLM 耗时），静默降级。
+- **P1 供应商抽象**：
+  - 引擎抽象为 `kind: balance | windows` 两类 + 查询/解析/缓存统一管线。
+  - 内置预设：`deepseek-official`（余额）、`opencode-go`（限额百分比）、
+    `new-api`（one-api 系网关）、`sub2api`（订阅配额网关）。
+  - 解析器三形态：内置预设 / `parse.source` 粘贴 JS / `parse.file` 脚本文件；
+    新增 `generic-balance` 通用余额解析器。
+  - 新增 `/quota-providers` 路由（additive）：暴露全部已配置供应商及其快照，
+    供即将到来的设置页使用；`ctx.runtime.opencodeQuota` 暴露内部 API。
+  - 配置层：包条目 `config.providers.*` 可覆盖预设或新增自定义供应商，零代码。
+- **P1 bundle 打包**：新增包内 `cordis.patch.yml` + `dsh.bundle.patch` 声明，
+  `dsh plugin add` 一条命令即完成挂载，**不再需要手动编辑 profile 的 loader 行**；
+  新增 `dsh.displayName` / `dsh.category` 元数据。
+- 兼容性：三条旧路由（/opencode-quota、/deepseek-quota、/quota-session）契约不变，
+  浏览器端 `lib/client.js` 未改动，升级无需动 UI。
+- 测试：新增 `.research/test-refactor-smoke.mjs`（mock ctx + 桩上游，43 项断言全过）。
+
 ## 0.5.1 (2026-08-14)
 
 - **监控窗口任务区重构**：原来的逐行 label+value 改为 **4 列指标网格**
