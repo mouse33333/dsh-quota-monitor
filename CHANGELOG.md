@@ -11,10 +11,19 @@
   - 展开面板新增独立 "MiniMax Token Plan" 段落；折叠卡片在切到 MiniMax 模型时
     显示其 5h 额度视图。
 - **展开面板改为 Tab 切换**：概览区移除，改为 `任务详情 / OpenCode / DeepSeek /
-  MiniMax` 四个 tab；详情区用 grid 重叠，面板高度恒等于最高 tab，切换不再跳动。
+  MiniMax / 千问` 五个 tab；详情区用 grid 重叠，面板高度恒等于最高 tab，切换不再跳动。
 - **任务详情数据对齐 harness**：`/quota-session` 的 token 用量改为优先读 harness
   投影缓存的 `tokenUsage.val.totals`（与对话框底部任务信息同源），费用仍按插件
   单价表估算；轮数/步数/时长本就来自投影缓存，现已完全一致。
+- **千问 tab**：新增静态 tab，说明千问 Token Plan 不提供额度查询 API，附控制台
+  链接（`https://platform.qianwenai.com/home/analytics/token-plan/individual`），
+  点击跳转外部页面。
+- **DeepSeek API 花费展示**：余额区域改为以当前任务花费（`¥X.XX`）为主数字，
+  余额显示在旁边辅助位置；无花费时回退为余额大字。
+- **设置页"额度监控"面板**：注册 `settings.section`（`dsh-quota-monitor-settings`），
+  在插件设置页展示各供应商状态（正常/异常），方便确认配置是否生效。
+- **截图更新**：README 替换为新 UI 截图（折叠态缩略图 + 任务详情 / OpenCode /
+  DeepSeek / MiniMax 四个 tab 的展开面板截图）。
 
 ## 0.6.0 (2026-08-16)
 
